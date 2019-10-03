@@ -13,6 +13,7 @@ class ListaTransacoesAdapter(
     transacoes: List<Transacao>,
     context: Context
 ) : BaseAdapter() {
+    
     private val transacoes = transacoes
     private val context = context
 
