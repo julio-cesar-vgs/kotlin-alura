@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.core.content.ContextCompat
 import com.example.financask.R
+import com.example.financask.extension.formataDataBrasileiro
+import com.example.financask.model.Tipo
 import com.example.financask.model.Transacao
 import kotlinx.android.synthetic.main.transacao_item.view.*
-import java.text.SimpleDateFormat
 
 class ListaTransacoesAdapter(
     transacoes: List<Transacao>,
@@ -27,14 +29,29 @@ class ListaTransacoesAdapter(
 
         val transacao = transacoes[position]
 
+
+        if (transacao.tipo == Tipo.RECEITAS) {
+            viewCreate.transacao_valor.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.receita
+                )
+            )
+            viewCreate.transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_receita)
+        } else {
+            viewCreate.transacao_valor.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.despesa
+                )
+            )
+            viewCreate.transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_despesa)
+        }
+
+
         viewCreate.transacao_valor.text = transacao.valor.toString()
         viewCreate.transacao_categoria.text = transacao.categoria
-
-
-        val formatoBrasileiro = "dd/MM/yyyy"
-        val format = SimpleDateFormat(formatoBrasileiro)
-        val dataFormatada = format.format(transacao.data.time)
-        viewCreate.transacao_data.text = dataFormatada
+        viewCreate.transacao_data.text = transacao.data.formataDataBrasileiro()
 
         return viewCreate
     }
@@ -46,4 +63,6 @@ class ListaTransacoesAdapter(
     }
 
     override fun getCount() = transacoes.size
+
+
 }

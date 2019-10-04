@@ -4,17 +4,17 @@ import java.math.BigDecimal
 import java.util.*
 
 class Transacao(
-    valor: BigDecimal,
-    categoria: String,
-    data: Calendar
+    val valor: BigDecimal,
+    val categoria: String = "Indefinida",
+    val tipo: Tipo,
+    val data: Calendar = Calendar.getInstance()
 ) {
-    private val valor: BigDecimal = valor
-    private val categoria: String = categoria
-    private val date: Calendar = data
+    constructor(valor: BigDecimal, tipo: Tipo) : this(valor, "Indefinida", tipo)
 
-    fun getValor(): BigDecimal {
-        return valor
-    }
-
-
+    constructor(valor: BigDecimal, tipo: Tipo, data: Calendar) : this(
+        valor,
+        "Indefinida",
+        tipo,
+        data
+    )
 }
