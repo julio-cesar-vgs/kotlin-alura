@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat
 import com.example.financask.R
 import com.example.financask.extension.formataDataBrasileiro
+import com.example.financask.extension.formataParaReal
 import com.example.financask.model.Tipo
 import com.example.financask.model.Transacao
 import kotlinx.android.synthetic.main.transacao_item.view.*
@@ -49,12 +50,15 @@ class ListaTransacoesAdapter(
         }
 
 
-        viewCreate.transacao_valor.text = transacao.valor.toString()
+
+
+        viewCreate.transacao_valor.text = transacao.valor.formataParaReal()
         viewCreate.transacao_categoria.text = transacao.categoria
         viewCreate.transacao_data.text = transacao.data.formataDataBrasileiro()
 
         return viewCreate
     }
+
 
     override fun getItem(position: Int) = transacoes.get(position)
 
